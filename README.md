@@ -1,12 +1,16 @@
-### Introduction into testing
-Litte golang api server with broken architecture and no tests.
-It'll become better over iterations.
+### What it is 
+Example of transactional outbox pattern in golang: write new orders with api server, send them to kafka via cron.
+
+More abort pattern: https://microservices.io/patterns/data/transactional-outbox.html
 
 ### How to run
 ```
-go run cmd/main.go --conf=conf.yaml
-```
+ // to run postgres, kafka
+docker-compose up -d
 
-#### Chapters
-- v0.0.1: added some unit tests, fixed bug in GET /orders and decouple pool&repo from usecase.
-- v0.0.2: added intergration tests for gateway-usecase layers. Also added tests with fakes.
+// to run app
+go run cmd/main.go --conf=conf.yaml
+
+// to run worker once
+go run cmd/cron/outbox_producer/order_producer/main.go --conf=conf.yaml
+```
