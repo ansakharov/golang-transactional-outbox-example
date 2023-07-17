@@ -1,0 +1,130 @@
+run:
+  build-tags:
+    - integration
+linters-settings:
+  gocyclo:
+    min-complexity: 30
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - experimental
+      - opinionated
+      - style
+    disabled-checks:
+      - dupImport # https://github.com/go-critic/go-critic/issues/845
+      - ifElseChain
+      - octalLiteral
+      - paramTypeCombine
+      - sloppyReassign
+      - unnamedResult
+      - whyNoLint
+      - wrapperFunc
+  goimports:
+    local-prefixes: go.avito.ru/av/service-tariff
+  govet:
+    check-shadowing: true
+    golint:
+      min-confidence: 0.8
+  lll:
+    line-length: 140
+  staticcheck:
+    # https://staticcheck.io/docs/options#checks
+    checks: ["all"]
+  wrapcheck:
+    ignoreSigs:
+      - .Errorf(
+      - errors.New(
+      - errors.Unwrap(
+      - .ProcessSequence(
+      - .Wrap(
+      - .Wrapf(
+      - .WithMessage(
+      - .WithMessagef(
+      - .WithStack(
+  wsl:
+    # See https://github.com/bombsimon/wsl/blob/master/doc/configuration.md for
+    # documentation of available settings. These are the defaults for
+    # `golangci-lint`.
+    allow-assign-and-anything: true
+    allow-assign-and-call: true
+    allow-cuddle-declarations: true
+    allow-trailing-comment: true
+linters:
+  enable:
+    - gocyclo
+    - asciicheck
+    - bodyclose
+    - errorlint
+    - exhaustive
+    - goconst
+    - gofmt
+    - goimports
+    - govet
+    - nilerr
+    - ineffassign
+    - wrapcheck
+    - unconvert
+    - unparam
+    - unused
+    - staticcheck
+    - wastedassign
+    - whitespace
+  disable:
+    - gochecknoglobals
+    - golint
+    - gocritic
+    - wsl
+issues:
+  # Excluding configuration per-path, per-linter, per-text and per-source
+  exclude:
+    - only cuddled expressions if assigning variable or using from line above
+    - ranges should only be cuddled with assignments used in the iteration
+    - defer statements should only be cuddled with expressions on same variable
+    - append only allowed to cuddle with appended value
+    - if statements should only be cuddled with assignments used in the if statement itself
+  exclude-rules:
+    # Exclude some linters from running on tests files.
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - asciicheck
+        - bodyclose
+        - errorlint
+        - exhaustive
+        - goconst
+        - gocritic
+        - gofmt
+        - goimports
+        - govet
+        - nilerr
+        - ineffassign
+        - wrapcheck
+        - unconvert
+        - unparam
+        - unused
+        - staticcheck
+        - wastedassign
+        - wsl
+        - whitespace
+    - path: _mock\.go
+      linters:
+        - gocyclo
+        - asciicheck
+        - bodyclose
+        - errorlint
+        - exhaustive
+        - goconst
+        - gocritic
+        - gofmt
+        - goimports
+        - govet
+        - nilerr
+        - ineffassign
+        - wrapcheck
+        - unconvert
+        - unparam
+        - unused
+        - staticcheck
+        - wastedassign
+        - wsl
+        - whitespace

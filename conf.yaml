@@ -1,0 +1,3 @@
+port: ":40999"
+db_conn_string: "postgres://postgres:changeme@localhost:5432/postgres"
+kafka_port: "9092"
